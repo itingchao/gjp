@@ -79,11 +79,26 @@ public class SortMngController extends AbstractSortMngDialog {
         }
 
         new EditSortController(this,sort).setVisible(true);
+        refresh();
     }
 
     @Override
     public void deleteSort() {
+        int row = sortDataTable.getSelectedRow();
 
+        if (row < 0){
+            JOptionPane.showMessageDialog(this,"请选择数据");
+            return;
+        }
+        Sort sort = getSortByTableRow(row);
+        //System.out.println(sort);
+        if (sort == null){
+            JOptionPane.showMessageDialog(this,"请选择有数据的行");
+            return;
+        }
+        sortService.deleteSort(sort);
+        JOptionPane.showMessageDialog(this,"确定删除这个分类吗");
+        refresh();
     }
 
     /**

@@ -16,6 +16,17 @@ import java.util.List;
 public class SortService {
     //创建dao层，SortDao类对象
     private SortDao sortDao = new SortDao();
+
+    public void deleteSort(Sort sort){
+        sortDao.deleteSort(sort);
+    }
+    /**
+     * 编辑分类
+     * @param sort 分类对象
+     */
+    public void editSort(Sort sort){
+        sortDao.editSort(sort);
+    }
     /**
      * 定义方法，调用dao层SortDao addSort添加分类
      * 传递Sort对象

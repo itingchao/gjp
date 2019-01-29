@@ -7,6 +7,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @ClassName:SortDao
@@ -20,6 +21,33 @@ public class SortDao {
 
     //在类的成员位置，定义QueryRunner对象，所有方法，都可以直接使用
     private QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+
+    /**
+     * 删除分类
+     */
+    public void deleteSort(Sort sort){
+        try {
+            String sql = "DELETE FROM gjp_sort WHERE sid = ?";
+            Object[] params = {sort.getSid()};
+            qr.update(sql,params);
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     *
+     */
+    public void editSort(Sort sort) {
+        try {
+            String sql = "UPDATE gjp_sort SET sname = ?,parent = ?,sdesc=? where sid = ?";
+            Object[] params = {sort.getSname(),sort.getParent(),sort.getSdesc(),sort.getSid()};
+            qr.update(sql,params);
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+
+        }
+
+    }
 
     /**
      * 定义方法，添加分类数据

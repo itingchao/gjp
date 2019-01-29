@@ -1,6 +1,7 @@
 package com.seven.controller;
 
 import com.seven.domain.Sort;
+import com.seven.sevice.SortService;
 import com.seven.view.AbstractOperationSortDialog;
 
 import javax.swing.*;
@@ -44,7 +45,6 @@ public class EditSortController extends AbstractOperationSortDialog {
         }
         if (sname == null || sname.isEmpty()){
             JOptionPane.showMessageDialog(this,"请输入分类名称");
-
             return;
         }
         //
@@ -52,6 +52,9 @@ public class EditSortController extends AbstractOperationSortDialog {
         sort.setSdesc(sdesc);
         sort.setSname(sname);
 
-
+        SortService sortService = new SortService();
+        sortService.editSort(sort);
+        this.dispose();
+        JOptionPane.showMessageDialog(this,"编辑成功");
     }
 }
