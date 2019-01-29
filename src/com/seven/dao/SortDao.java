@@ -4,10 +4,10 @@ import com.seven.domain.Sort;
 import com.seven.tools.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @ClassName:SortDao
@@ -21,6 +21,42 @@ public class SortDao {
 
     //在类的成员位置，定义QueryRunner对象，所有方法，都可以直接使用
     private QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+
+    /**
+     *querySortNameIncome 查询所有收入的分类
+     */
+    public List<Object> querySortNamePay(){
+        try {
+            String sql = "SELECT sname FROM gjp_sort WHERE parent = '支出'";
+            return qr.query(sql,new ColumnListHandler());
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     *querySortNameIncome 查询所有收入的分类
+     */
+    public List<Object> querySortNameIncome(){
+        try {
+           String sql = "SELECT sname FROM gjp_sort WHERE parent = '收入'";
+           return qr.query(sql,new ColumnListHandler());
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    /**
+     * querySortNameAll 查询所有分类的名称
+     *
+     */
+    public List<Object> querySortNameAll(){
+        try {
+            String sql = "SELECT sname FROM gjp_sort";
+            return qr.query(sql,new ColumnListHandler());
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
 
     /**
      * 删除分类

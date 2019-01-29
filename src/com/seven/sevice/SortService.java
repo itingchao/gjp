@@ -2,6 +2,7 @@ package com.seven.sevice;
 
 import com.seven.dao.SortDao;
 import com.seven.domain.Sort;
+import org.omg.CORBA.OBJ_ADAPTER;
 
 import java.util.List;
 
@@ -16,7 +17,31 @@ import java.util.List;
 public class SortService {
     //创建dao层，SortDao类对象
     private SortDao sortDao = new SortDao();
+    /**
+     * 查询收入的支出分类
+     */
+    public List<Object> querySoryNamePay(){
+        return sortDao.querySortNamePay();
+    }
+    /**
+     * 查询收入的分类
+     */
+    public List<Object> querySortNameIncome(){
+        return sortDao.querySortNameIncome();
+    }
 
+    /**
+     * 查询所有分类收入、支出
+     * @return
+     */
+    public List<Object> querySortNameAll(){
+        return sortDao.querySortNameAll();
+    }
+
+    /**
+     * 删除分类
+     * @param sort
+     */
     public void deleteSort(Sort sort){
         sortDao.deleteSort(sort);
     }
