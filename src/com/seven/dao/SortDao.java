@@ -71,7 +71,7 @@ public class SortDao {
         }
     }
     /**
-     *
+     *分类管理--分类编辑
      */
     public void editSort(Sort sort) {
         try {

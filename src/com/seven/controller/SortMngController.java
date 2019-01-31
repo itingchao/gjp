@@ -3,6 +3,7 @@ package com.seven.controller;
 import com.seven.domain.Sort;
 import com.seven.sevice.SortService;
 import com.seven.view.AbstractSortMngDialog;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.util.List;
@@ -96,9 +97,13 @@ public class SortMngController extends AbstractSortMngDialog {
             JOptionPane.showMessageDialog(this,"请选择有数据的行");
             return;
         }
-        sortService.deleteSort(sort);
-        JOptionPane.showMessageDialog(this,"确定删除这个分类吗");
-        refresh();
+        int i = JOptionPane.showConfirmDialog(this,"是否真的要删除","删除提示",JOptionPane.YES_NO_OPTION);
+        if (i== JOptionPane.OK_OPTION){
+            sortService.deleteSort(sort);
+            JOptionPane.showMessageDialog(this,"删除成功");
+            refresh();
+        }
+
     }
 
     /**
