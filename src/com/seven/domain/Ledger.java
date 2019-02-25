@@ -15,13 +15,14 @@ public class Ledger {
     private double money;
     private int sid;
     private String account;
-    private Date createtime;
+    private String createtime;
     private String ldesc;
+    private String sname;
 
     public Ledger(){
 
     }
-    public Ledger(int lid, String parent, Double money, int sid, String account, Date createtime, String ldesc) {
+    public Ledger(int lid, String parent, double money, int sid, String account, String createtime, String ldesc, String sname) {
         this.lid = lid;
         this.parent = parent;
         this.money = money;
@@ -29,6 +30,7 @@ public class Ledger {
         this.account = account;
         this.createtime = createtime;
         this.ldesc = ldesc;
+        this.sname = sname;
     }
 
     public int getLid() {
@@ -47,14 +49,6 @@ public class Ledger {
         this.parent = parent;
     }
 
-    public Double getMoney() {
-        return money;
-    }
-
-    public void setMoney(Double money) {
-        this.money = money;
-    }
-
     public int getSid() {
         return sid;
     }
@@ -71,11 +65,11 @@ public class Ledger {
         this.account = account;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
@@ -85,6 +79,22 @@ public class Ledger {
 
     public void setLdesc(String ldesc) {
         this.ldesc = ldesc;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
     }
 
     @Override
@@ -97,6 +107,7 @@ public class Ledger {
                 ", account='" + account + '\'' +
                 ", createtime=" + createtime +
                 ", ldesc='" + ldesc + '\'' +
+                ", sname='" + sname + '\'' +
                 '}';
     }
 }

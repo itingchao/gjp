@@ -5,7 +5,9 @@ import com.seven.tools.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import javax.swing.table.TableRowSorter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,6 +24,29 @@ public class SortDao {
     //在类的成员位置，定义QueryRunner对象，所有方法，都可以直接使用
     private QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
 
+    /**
+     * 根據ID查詢sname
+     */
+    public String querySnameBySid(int sid){
+        try {
+            String sql = "SELECT sname FROM gjp_sort WHERE sid = ?";
+            return (String) qr.query(sql,new ScalarHandler(),sid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 根據sname 查找id
+     */
+    public int querySidBySname(String sname){
+        try {
+            String sql = "SELECT sid FROM gjp_sort WHERE sname=?";
+            return (int)qr.query(sql,new ScalarHandler(),sname);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      *querySortNameIncome 查询所有收入的分类
      */

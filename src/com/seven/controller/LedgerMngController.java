@@ -1,10 +1,14 @@
 package com.seven.controller;
 
+import com.seven.domain.Ledger;
+import com.seven.domain.QueryForm;
+import com.seven.sevice.LedgerService;
 import com.seven.sevice.SortService;
 import com.seven.view.AbstractLedgerMngDialog;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName:LedgerMngController
@@ -19,9 +23,10 @@ public class LedgerMngController extends AbstractLedgerMngDialog {
     }
 
     private SortService sortService = new SortService();
+    private LedgerService ledgerService = new LedgerService();
     @Override
     public void addLedger() {
-
+        new AddLedgerController(this).setVisible(true);
     }
 
     @Override
@@ -36,6 +41,22 @@ public class LedgerMngController extends AbstractLedgerMngDialog {
 
     @Override
     public void queryLedger() {
+        String begin = beginDateTxt.getText();
+        String end = endDateTxt.getText();
+        String parent = parentBox.getSelectedItem().toString();
+        String sname = sortBox.getSelectedItem().toString();
+        QueryForm form = new QueryForm(begin,end,parent,sname);
+        ledgerService.queryLedgerByQueryForm(form);
+
+        Map<String,Object> data = ledgerService.queryLedgerByQueryForm(form);
+        List<Ledger> list = (List<Ledger>)data.get("Ledger");
+        double in = (double)data.get("in");
+        double pay = (double)data.get("pay");
+
+        setTableModel(list);
+        inMoneyTotalLabel.setText(new StringBuffer().append("总收入：").append(in).append(" 元").toString());
+        payMoneyTotalLabel.setText(new StringBuffer().append("总支出：").append(pay).append(" 元").toString());
+
 
     }
 
