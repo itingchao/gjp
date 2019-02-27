@@ -6,23 +6,32 @@ import com.seven.sevice.SortService;
 import com.seven.view.AbstractOperationLedgerDialog;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 /**
- * @ClassName:AddLedgerController
+ * @ClassName:EditLedgerController
  * @Description:TODO
  * @Author:Admin
- * @Date: 2019/2/2416:36
+ * @Date: 2019/2/2622:24
  * @version: 1.0
  */
-public class AddLedgerController extends AbstractOperationLedgerDialog {
+public class EditLedgerController extends AbstractOperationLedgerDialog {
     private SortService sortService = new SortService();
+    private Ledger ledger;
     private LedgerService ledgerService = new LedgerService();
-    public AddLedgerController(JDialog dialog) {
+    public EditLedgerController(JDialog dialog,Ledger ledger) {
         super(dialog);
-        this.titleLabel.setText("添加账务");
-        super.setTitle("添加账务");
+        this.titleLabel.setText("编辑账务");
+        super.setTitle("编辑账务");
+
+        this.ledger = ledger;
+        parentBox.setSelectedItem(ledger.getParent());
+        sortBox.setSelectedItem(ledger.getSname());
+        accountTxt.setText(ledger.getAccount());
+        moneyTxt.setText(ledger.getMoney()+"");
+        createtimeTxt.setText(ledger.getCreatetime());
+        ldescTxt.setText(ledger.getLdesc());
+
     }
 
     @Override
@@ -82,10 +91,20 @@ public class AddLedgerController extends AbstractOperationLedgerDialog {
             return;
         }
 
+        int lid = ledger.getLid();
         int sid = ledgerService.querySidBySname(sname);
-        Ledger ledger = new Ledger(0, parent, money, sid, account, createtime, sDesc, sname);
-        ledgerService.addLedger(ledger);
+        ledger = new Ledger();
+        ledger.setParent(parent);
+        ledger.setMoney(money);
+        ledger.setLid(lid);
+        ledger.setSname(sname);
+        ledger.setSid(sid);
+        ledger.setLdesc(sDesc);
+        ledger.setAccount(account);
+        ledger.setCreatetime(createtime);
+
+        ledgerService.editLedger(ledger);
         this.dispose();
-        JOptionPane.showMessageDialog(this,"添加账务成功");
+        JOptionPane.showMessageDialog(this,"编辑成功");
     }
 }

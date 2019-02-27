@@ -21,6 +21,20 @@ public class LedgerService {
     private LedgerDao ledgerDao = new LedgerDao();
     private SortDao sortDao = new SortDao();
 
+    //编辑账务
+    public void editLedger(Ledger ledger){
+        ledgerDao.editLedger(ledger);
+    }
+
+    //添加账务
+    public void addLedger(Ledger ledger){
+        ledgerDao.addLedger(ledger);
+    }
+    //调用sortDao的querySidBySname
+    public int querySidBySname(String sname){
+        return sortDao.querySidBySname(sname);
+    }
+
     public Map<String,Object> queryLedgerByQueryForm(QueryForm form){
 
        List<Ledger> list =  ledgerDao.queryLedgerByQueryForm(form);

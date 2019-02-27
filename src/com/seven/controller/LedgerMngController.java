@@ -2,6 +2,7 @@ package com.seven.controller;
 
 import com.seven.domain.Ledger;
 import com.seven.domain.QueryForm;
+import com.seven.domain.Sort;
 import com.seven.sevice.LedgerService;
 import com.seven.sevice.SortService;
 import com.seven.view.AbstractLedgerMngDialog;
@@ -31,7 +32,18 @@ public class LedgerMngController extends AbstractLedgerMngDialog {
 
     @Override
     public void editLedger() {
-
+        int row = ledgerDataTable.getSelectedRow();
+        if (row<0){
+            JOptionPane.showMessageDialog(this,"请选择数据");
+            return;
+        }
+        Ledger ledger = getLedgerByTableRow(row);
+        if (ledger == null){
+            JOptionPane.showMessageDialog(this,"请选择有数据的行");
+            return;
+        }
+        new EditLedgerController(this,ledger).setVisible(true);
+        queryLedger();
     }
 
     @Override
@@ -85,6 +97,7 @@ public class LedgerMngController extends AbstractLedgerMngDialog {
             list.add(0,"-请选择-");
             sortBox.setModel(new DefaultComboBoxModel(list.toArray()));
         }
+
     }
 
     @Override
